@@ -30,11 +30,16 @@
 
 <div class="row">
   <div class="col">
-    <select class="form-select" (change)="onOptionSelected($event)">
-      <option>Option 1</option>
-      <option>Option 2</option>
-      <option>Option 3</option>
-    </select>
+    <ng-multiselect-dropdown
+  [placeholder]="'Odaberite valutu/e'"
+  [settings]="dropdownSettings"
+  [data]="dropdownList"
+  [(ngModel)]="selectedItems"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+  class="custom-dropdown"
+>
+</ng-multiselect-dropdown>
   </div>
   <div class="col">
     <input type="date" class="form-control" (change)="onStartDateSelected($event)">

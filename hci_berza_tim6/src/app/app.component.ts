@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
     }
   
 
-    /*
+    
   dropdownList:any = [];
   selectedItems:any = [];
   dropdownSettings:any = {};
@@ -58,17 +58,18 @@ export class AppComponent implements OnInit {
     
   }
   ngOnInit() {
+    this.fetchData();
     this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' },
-      { item_id: 6, item_text: 'Mumbai' },
-      { item_id: 7, item_text: 'Bangaluru' },
-      { item_id: 8, item_text: 'Pune' },
-      { item_id: 9, item_text: 'Navsari' },
-      { item_id: 10, item_text: 'New Delhi' }
+      { item_id: 1, item_text: 'Option 1' },
+      { item_id: 2, item_text: 'Option 2' },
+      { item_id: 3, item_text: 'Option 3' },
+      { item_id: 4, item_text: 'Option 4' },
+      { item_id: 5, item_text: 'Option 5' },
+      { item_id: 6, item_text: 'Option 6' },
+      { item_id: 7, item_text: 'Option 7' },
+      { item_id: 8, item_text: 'Option 8' },
+      { item_id: 9, item_text: 'Option 9' },
+      { item_id: 10, item_text: 'Option 10' }
     ];
     this.selectedItems = [
     ];
@@ -87,11 +88,7 @@ export class AppComponent implements OnInit {
   onSelectAll(items: any) {
     console.log(items);
   }
-  */
-
-  ngOnInit() {
-    this.fetchData();
-  }
+ 
   
   fetchData() {
     this.apiService.getStocksDataIntraday("IBM", "60min").subscribe({
