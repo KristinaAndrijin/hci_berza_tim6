@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FormControl } from '@angular/forms';
+import { ApiService } from './services/api.service';
 
 
 /*
@@ -15,15 +16,17 @@ interface Option {
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  
 })
 
-export class AppComponent /*implements OnInit*/ {
+export class AppComponent implements OnInit {
   selectedOption: string = "";
   startDate: Date = new Date();
   endDate: Date = new Date();
   selectedRadio: string = "";
   selectedItems: Set<string> = new Set();
+  candlestickChartData: any[] = [];
+
+  constructor(private apiService:ApiService) {  }
   
     onOptionSelected(event: any) {
       this.selectedOption = event.target.value;
@@ -85,4 +88,27 @@ export class AppComponent /*implements OnInit*/ {
     console.log(items);
   }
   */
+
+  ngOnInit() {
+    this.fetchData();
+  }
+  
+  fetchData() {
+    this.apiService.getStocksDataIntraday("IBM", "5min").subscribe({
+      next: (result) => {
+        const xd = result[Object.keys(result)[1]];
+        const data = Object.keys(xd).map((field) => ({
+          x: new Date(field),
+          y: [xd[field]["1. open"], xd[field]["2. high"], xd[field]["3. low"], xd[field]["4. close"]],
+        })).reverse();
+        this.candlestickChartData = data;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log("Data fetch completed.");
+      },
+    });
+  }
 }

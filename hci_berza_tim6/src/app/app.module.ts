@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
+import { ServicesModule } from './services/services.module';
 
 import { MaterialModule } from './material.module';
 import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart.component';
@@ -36,6 +36,7 @@ import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    ServicesModule,
     MatButtonModule,
     MatIconModule,
     MaterialModule,
