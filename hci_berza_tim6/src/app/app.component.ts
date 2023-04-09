@@ -4,14 +4,6 @@ import { FormControl } from '@angular/forms';
 import { ApiService } from './services/api.service';
 
 
-/*
-interface Option {
-  name: string;
-  value: string;
-  selected: boolean;
-}
-*/
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,12 +11,15 @@ interface Option {
 })
 
 export class AppComponent implements OnInit {
+  title:string = "hci_berza_tim6";
   selectedOption: string = "";
   startDate: Date = new Date();
   endDate: Date = new Date();
   selectedRadio: string = "";
   selectedItems: Set<string> = new Set();
   candlestickChartData: any[] = [];
+  dropdownList:any = [];
+  dropdownSettings:any = {};
 
   constructor(private apiService:ApiService) {  }
   
@@ -47,16 +42,8 @@ export class AppComponent implements OnInit {
       this.selectedRadio = event.target.value;
       console.log('Selected radio: ', this.selectedRadio);
     }
-  
 
-    
-  dropdownList:any = [];
-  selectedItems:any = [];
-  dropdownSettings:any = {};
-  
-  constructor() {
-    
-  }
+
   ngOnInit() {
     this.fetchData();
     this.dropdownList = [
@@ -71,8 +58,7 @@ export class AppComponent implements OnInit {
       { item_id: 9, item_text: 'Option 9' },
       { item_id: 10, item_text: 'Option 10' }
     ];
-    this.selectedItems = [
-    ];
+    this.selectedItems = new Set();
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
