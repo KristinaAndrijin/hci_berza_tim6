@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import {
   ChartComponent,
@@ -25,7 +25,7 @@ export type ChartOptions = {
   templateUrl: './candlestick-chart.component.html',
   styleUrls: ['./candlestick-chart.component.css']
 })
-export class CandlestickChartComponent {
+export class CandlestickChartComponent implements OnChanges{
   @Input() public dataSet: any[] = [];
   @ViewChild("chart")
   chart!: ChartComponent;
@@ -65,19 +65,15 @@ export class CandlestickChartComponent {
       }
     };
   }
-
-  // public generateDayWiseTimeSeries(baseval:any, count:any, yrange:any) {
-  //   var i = 0;
-  //   var series = [];
-  //   while (i < count) {
-  //     var y =
-  //       Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-  //     series.push([baseval, y]);
-  //     baseval += 86400000;
-  //     i++;
-  //   }
-  //   return series;
-  // }
-
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dataSet']) {
+      this.chartOptions.series = [
+        {
+          name: "candle",
+          data: changes['dataSet'].currentValue
+        }
+      ];
+      this.chart.updateOptions(this.chartOptions);
+    }
+  }
 }

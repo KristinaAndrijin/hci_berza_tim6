@@ -94,9 +94,10 @@ export class AppComponent implements OnInit {
   }
   
   fetchData() {
-    this.apiService.getStocksDataIntraday("IBM", "5min").subscribe({
+    this.apiService.getStocksDataIntraday("IBM", "60min").subscribe({
       next: (result) => {
         const xd = result[Object.keys(result)[1]];
+        console.log(result);
         const data = Object.keys(xd).map((field) => ({
           x: new Date(field),
           y: [xd[field]["1. open"], xd[field]["2. high"], xd[field]["3. low"], xd[field]["4. close"]],
