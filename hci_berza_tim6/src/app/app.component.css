@@ -35,6 +35,11 @@
   flex-direction: row;
   align-items: center;
   }
+
+  #chart {
+    max-width: 650px;
+    margin: 35px auto;
+  }
   
 
   :host ::ng-deep .multiselect-item-checkbox input[type='checkbox'] {

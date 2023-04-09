@@ -94,10 +94,15 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/apexcharts/dist/apexcharts.min.js"
+            ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "1ba1dffa-0961-4b74-8379-cba1ae719081"
   }
 }
