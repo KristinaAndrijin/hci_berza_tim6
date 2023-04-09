@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FormControl } from '@angular/forms';
 
+
 /*
 interface Option {
   name: string;
@@ -22,6 +23,7 @@ export class AppComponent /*implements OnInit*/ {
   startDate: Date = new Date();
   endDate: Date = new Date();
   selectedRadio: string = "";
+  selectedItems: Set<string> = new Set();
   
     onOptionSelected(event: any) {
       this.selectedOption = event.target.value;

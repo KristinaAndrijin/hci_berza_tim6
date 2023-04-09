@@ -91,6 +91,11 @@ app-root ng-multiselect-dropdown .selected-item-container .selected-item {
   flex-direction: row;
   align-items: center;
   }
+
+  #chart {
+    max-width: 650px;
+    margin: 35px auto;
+  }
   
 
   
