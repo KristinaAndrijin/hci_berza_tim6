@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.multiselect-dropdown[_ngcontent-lya-c1] .dropdown-btn[_ngcontent-lya-c1] .selected-item-container[_ngcontent-lya-c1] .selected-item[_ngcontent-lya-c1] {
+    border: 1px solid #000000;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    background: #ff4081;
+    padding: 0 5px;
+    color: #fff;
+    border-radius: 2px;
+    float: left;
+}
+  
