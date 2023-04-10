@@ -17,7 +17,7 @@ export class DataTableComponent implements OnInit {
   selectedTabIndex: number = 0;
   pageSize: number = 10;
   pageSizeOptions: number[] = [5, 10, 15];
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['date', 'high', 'low', 'open','close','volume'];
 
   constructor() { }
 
@@ -27,32 +27,25 @@ export class DataTableComponent implements OnInit {
     this.updateTableData();
   }
 
-  // Dummy data for tab1
   tab1Data = [
-    { position: 1, name: 'Data1Tab1', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Data2Tab1', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Data3Tab1', weight: 6.941, symbol: 'Li' },
-    { position: 3, name: 'Data3Tab1', weight: 6.941, symbol: 'Li' },
-    { position: 3, name: 'Data3Tab1', weight: 6.941, symbol: 'Li' },
-    { position: 3, name: 'Data3Tab1', weight: 6.941, symbol: 'Li' },
-    { position: 3, name: 'Data3Tab1', weight: 6.941, symbol: 'Li' },
-    // Add more data as needed
+    { date: 1, high: 1234, low: 555, open: 123, close:321, volume: 100 },
+    { date: 2, high: 12345, low: 556, open: 127, close:361, volume: 200 },
+    { date: 1, high: 1234, low: 555, open: 123, close:321, volume: 100 },
+    { date: 2, high: 12345, low: 556, open: 127, close:361, volume: 200 },
+    { date: 1, high: 1234, low: 555, open: 123, close:321, volume: 100 },
+    { date: 2, high: 12345, low: 556, open: 127, close:361, volume: 200 },
   ];
 
-  // Dummy data for tab2
   tab2Data = [
-    { position: 1, name: 'Data1Tab2', weight: 9.0122, symbol: 'Be' },
-    { position: 2, name: 'Data2Tab2', weight: 10.81, symbol: 'B' },
-    { position: 3, name: 'Data3Tab2', weight: 12.01, symbol: 'C' },
-    // Add more data as needed
+    { date: 1, high: 1234, low: 555, open: 123, close:321, volume: 100 },
+    { date: 2, high: 12345, low: 556, open: 127, close:361, volume: 200 },
+    { date: 1, high: 1234, low: 555, open: 123, close:321, volume: 100 },
+    { date: 2, high: 12345, low: 556, open: 127, close:361, volume: 200 },
   ];
 
-  // Dummy data for tab3
   tab3Data = [
-    { position: 1, name: 'Data1Tab3', weight: 14.01, symbol: 'N' },
-    { position: 2, name: 'Data2Tab3', weight: 16.00, symbol: 'O' },
-    { position: 3, name: 'Data3Tab3', weight: 19.00, symbol: 'F' },
-    // Add more data as needed
+    { date: 1, high: 1234, low: 555, open: 123, close:321, volume: 100 },
+    { date: 2, high: 12345, low: 556, open: 127, close:361, volume: 200 },
   ];
 
   updateTableData() {
