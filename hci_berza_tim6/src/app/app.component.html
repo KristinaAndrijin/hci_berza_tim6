@@ -76,16 +76,17 @@
 
   
 
-<div id="chart-and-table">
-
-  <div id="chart" class="white-background">
-    <app-candlestick-chart [dataSet]="candlestickChartData"></app-candlestick-chart>
+  <div id="container" style="display: flex; flex-wrap: wrap;">
+    <div id="chart" style="flex-grow: 1;">
+      <app-candlestick-chart [dataSet]="candlestickChartData"></app-candlestick-chart>
+    </div>
+    <div id="data-table" style="flex-grow: 1; max-width: 700px;">
+      <app-data-table></app-data-table>
+    </div>
   </div>
-
-  <div id="data-table" class="white-background">
-    <app-data-table></app-data-table>
-  </div>
-</div>
+  
+  
+  
 
   </html>
 
