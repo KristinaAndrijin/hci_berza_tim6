@@ -15,11 +15,26 @@ export class AppComponent implements OnInit {
   selectedOption: string = "";
   startDate: Date = new Date();
   endDate: Date = new Date();
+<<<<<<< Updated upstream
   selectedRadio: string = "";
   selectedItems: Set<string> = new Set();
   candlestickChartData: any[] = [];
   dropdownList:any = [];
   dropdownSettings:any = {};
+=======
+  selectedRadioComp: string = "currencies";
+  selectedRadioParam: string = "high";
+  selectedItems: any;
+  candlestickChartData: any[] = [];
+  dropdownList:any = [];
+  dropdownSettings:any = {};
+  csvData: any = [];
+  selectedTimeInterval: string = "1 min";
+  selectedOptionSimple: string = "";
+  companies: boolean = false;
+  options = ['1min','5min', '15min', '30min', '60min', 'Daily', 'Weekly', 'Monthly'];
+  selectedOptionTime = "Daily";
+>>>>>>> Stashed changes
 
   constructor(private apiService:ApiService) {  }
   
@@ -45,7 +60,29 @@ export class AppComponent implements OnInit {
 
     onItemSelect(item: any) {
       console.log(item);
-      console.log(this.selectedItems);
+      console.log(this.selectedItems)
+      console.log(this.selectedItems.length)
+      if(this.companies){
+        if(this.oneOrNoneSelected()){
+          const interval = this.selectedTimeInterval.replace(/\s/g, '');
+          if(this.options.slice(0,5).includes(interval)){
+            const company = this.selectedItems[0].split(',')[0];
+            this.fetchStocksIntradayData(company,interval);
+          }
+          else if(interval === this.options[5]){
+            const company = this.selectedItems[0].split(',')[0];
+            this.fetchStocksData('TIME_SERIES_DAILY_ADJUSTED',company);
+          }
+          else if(interval === this.options[6]){
+            const company = this.selectedItems[0].split(',')[0];
+            this.fetchStocksData('TIME_SERIES_WEEKLY',company);
+          }
+          else if(interval === this.options[7]){
+            const company = this.selectedItems[0].split(',')[0];
+            this.fetchStocksData('TIME_SERIES_MONTHLY',company);
+          }
+        }
+      }
     }
     onSelectAll(items: any) {
       console.log(items);
@@ -55,10 +92,17 @@ export class AppComponent implements OnInit {
       console.log('Item deselected:', item);
       console.log(this.selectedItems);
     }
+<<<<<<< Updated upstream
+=======
+    onOptionSelectedTimeBox(event: any) {
+      console.log('Selected option: ', event.value);
+      this.selectedTimeInterval = event.value;
+    }
+    
+>>>>>>> Stashed changes
 
 
   async ngOnInit() {
-    this.fetchData();
     this.selectedItems = new Set();
     this.fetchCurrencies().then((list) => {
       this.dropdownList = list;
@@ -75,11 +119,9 @@ export class AppComponent implements OnInit {
       allowSearchFilter: true
     };
   }
-
   
-  
-  fetchData() {
-    this.apiService.getStocksDataIntraday("IBM", "60min").subscribe({
+  fetchStocksIntradayData(symbol: string, time:string) {
+    this.apiService.getStocksDataIntraday(symbol, time).subscribe({
       next: (result) => {
         const xd = result[Object.keys(result)[1]];
         console.log(result);
@@ -88,6 +130,25 @@ export class AppComponent implements OnInit {
           y: [xd[field]["1. open"], xd[field]["2. high"], xd[field]["3. low"], xd[field]["4. close"]],
         })).reverse();
         this.candlestickChartData = data;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log("Data fetch completed.");
+      },
+    });
+  }
+  fetchStocksData(func: string, symbol: string) {
+    this.apiService.getStocksData(func, symbol).subscribe({
+      next: (result) => {
+        const xd = result[Object.keys(result)[1]];
+        console.log(result);
+        const data = Object.keys(xd).map((field) => ({
+          x: new Date(field),
+          y: [xd[field]["1. open"], xd[field]["2. high"], xd[field]["3. low"], xd[field]["4. close"]],
+        }));
+        this.candlestickChartData = data.slice(0,50);
       },
       error: (error) => {
         console.log(error);
@@ -113,4 +174,33 @@ export class AppComponent implements OnInit {
     }
   }
 
+<<<<<<< Updated upstream
+=======
+  loadCsvFile(): Promise<void> {
+    const csvUrl = 'assets/digital_currency_list.csv';
+    return new Promise((resolve, reject) => {
+      this.http.get(csvUrl, { responseType: 'text' }).subscribe(data => {
+        const rows = data.split('\n');
+        const headerRow = rows[0];
+        const dataRows = rows.slice(1, -1);
+        const options = dataRows.map((row) => {
+          const values = row.split(',');
+          return values[0].toString().trim() + ", " + values[1].toString().trim();
+        });
+        this.csvData = options;
+        resolve();
+      }, error => {
+        console.error('Error loading CSV file:', error);
+        reject(error);
+      });
+    });
+  }
+
+  oneOrNoneSelected(): boolean {
+    return this.selectedItems.length === 1 || this.selectedItems.length === 0 || this.selectedItems.length === undefined 
+  }
+  moreSelected(): boolean{
+    return this.selectedItems.length > 1
+  }
+>>>>>>> Stashed changes
 }
