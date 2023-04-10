@@ -3,6 +3,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FormControl } from '@angular/forms';
 import { ApiService } from './services/api.service';
 import { HttpClient } from '@angular/common/http';
+import cli from '@angular/cli';
 
 
 
@@ -27,15 +28,16 @@ export class AppComponent implements OnInit {
   csvData: any = [];
   selectedOptionSimple: string = "";
   companies: boolean = false;
-  options = ['1min','5min', '15min', '30min', '60min', 'Daily', 'Weekly', 'Monthly'];
+  options = ['1 min','5 min', '15 min', '30 min', '60 min', 'Daily', 'Weekly', 'Monthly'];
   selectedOptionTime = "Daily";
+  selectedLegendItem: any;
 
   constructor(private apiService:ApiService, private http: HttpClient) {  }
       
     onRadioCompaniesSelected(event: any) {
       this.selectedRadioComp = event.target.value;
       console.log('Selected radio: ', this.selectedRadioComp);
-      this.companies = this.selectedRadioComp == "companies"
+      this.companies = this.selectedRadioComp == "Companies"
       this.selectedItems = new Set();
     }
 
@@ -89,6 +91,15 @@ export class AppComponent implements OnInit {
   fetchStocksIntradayData(symbol: string, time:string) {
     this.apiService.getStocksDataIntraday(symbol, time).subscribe({
       next: (result) => {
+        if(result["Error Message"])
+        { 
+          console.log('error!') //<<<<<<<<<<< handluj error ovde
+          return
+        }
+        else if(result["Note"]){
+          console.log("Pretero si!")
+          return
+        }
         const xd = result[Object.keys(result)[1]];
         console.log(result);
         const data = Object.keys(xd).map((field) => ({
@@ -108,6 +119,15 @@ export class AppComponent implements OnInit {
   fetchStocksData(func: string, symbol: string) {
     this.apiService.getStocksData(func, symbol).subscribe({
       next: (result) => {
+        if(result["Error Message"])
+        { 
+          console.log('error!') //<<<<<<<<<<< handluj error ovde
+          return
+        }
+        else if(result["Note"]){
+          console.log("Pretero si!")
+          return
+        }
         const xd = result[Object.keys(result)[1]];
         console.log(result);
         const data = Object.keys(xd).map((field) => ({
@@ -127,7 +147,15 @@ export class AppComponent implements OnInit {
   fetchCryptoData(func: string, symbol: string) {
     this.apiService.getCryptoData(func, symbol).subscribe({
       next: (result) => {
-        if(result["Error message"]){ console.log('error!') }
+        if(result["Error Message"])
+        { 
+          console.log('error!') //<<<<<<<<<<< handluj error ovde
+          return
+        }
+        else if(result["Note"]){
+          console.log("Pretero si!")
+          return
+        }
         const xd = result[Object.keys(result)[1]];
         console.log(result);
         const data = Object.keys(xd).map((field) => ({
@@ -180,52 +208,61 @@ export class AppComponent implements OnInit {
       });
     });
   }
-  oneOrNoneSelected(): boolean {
-    return this.selectedItems.length === 1 || this.selectedItems.length === 0 || this.selectedItems.length === undefined 
-  }
-  moreSelected(): boolean{
-    return this.selectedItems.length > 1
-  }
-
+  
   updateCharts(): void{
     if(this.companies){
-      if(this.oneOrNoneSelected()){
+      if(this.selectedLegendItem){
         const interval = this.selectedOptionTime.replace(/\s/g, '');
         if(this.options.slice(0,5).includes(interval)){
-          const company = this.selectedOptionTime[0].split(',')[0];
+          const company = this.selectedLegendItem;
           this.fetchStocksIntradayData(company,interval);
         }
         else if(interval === this.options[5]){
-          const company = this.selectedOptionTime[0].split(',')[0];
+          const company = this.selectedLegendItem;
           this.fetchStocksData('TIME_SERIES_DAILY_ADJUSTED',company);
         }
         else if(interval === this.options[6]){
-          const company = this.selectedItems[0].split(',')[0];
+          const company = this.selectedLegendItem;
           this.fetchStocksData('TIME_SERIES_WEEKLY',company);
         }
         else if(interval === this.options[7]){
-          const company = this.selectedItems[0].split(',')[0];
+          const company = this.selectedLegendItem;
           this.fetchStocksData('TIME_SERIES_MONTHLY',company);
         }
       }
+      else {
+        //this.candlestickChartData = [];
+      }
     }
     else {
-      if(this.oneOrNoneSelected()){
+      if(this.selectedLegendItem){
         const interval = this.selectedOptionTime.replace(/\s/g, '');
+        if(this.options.slice(0,5).includes(interval)){
+          console.log("ne moze, plati")  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< hendlaj ilegalno vreme na crypto
+        }
         if(interval === this.options[5]){
-          const company = this.selectedItems[0].split(',')[0];
+          const company = this.selectedLegendItem;
           this.fetchCryptoData('DIGITAL_CURRENCY_DAILY',company);
         }
         else if(interval === this.options[6]){
-          const company = this.selectedItems[0].split(',')[0];
+          const company = this.selectedLegendItem;
           this.fetchCryptoData('DIGITAL_CURRENCY_WEEKLY',company);
         }
         else if(interval === this.options[7]){
-          const company = this.selectedItems[0].split(',')[0];
+          const company = this.selectedLegendItem;
           this.fetchCryptoData('DIGITAL_CURRENCY_MONTHLY',company);
         }
       }
+      else {
+        //this.candlestickChartData = [];
+      }
     }
+  }
+
+  selectItemInLegend(event:any){
+    const clicked = event.target as HTMLDivElement;
+    this.selectedLegendItem = clicked.innerText;
+    this.updateCharts();
   }
 
 }
