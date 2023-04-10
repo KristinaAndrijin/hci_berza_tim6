@@ -22,13 +22,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MaterialModule } from './material.module';
 import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
-
+import { DataTableComponent } from './data-table/data-table.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CandlestickChartComponent
+    CandlestickChartComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatListModule,
     ServicesModule,
     MatButtonModule,
+    MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule,
     MatIconModule,
     MaterialModule,
     MatAutocompleteModule,
