@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   selectedRadioParam: string = "high";
   selectedItems: any;
   candlestickChartData: any[] = [];
+  tableData: any[] = [];
   dropdownList:any = [];
   dropdownSettings:any = {};
   csvData: any = [];
@@ -102,11 +103,21 @@ export class AppComponent implements OnInit {
         }
         const xd = result[Object.keys(result)[1]];
         console.log(result);
-        const data = Object.keys(xd).map((field) => ({
+        const chartData = Object.keys(xd).map((field) => ({
           x: new Date(field),
           y: [xd[field]["1. open"], xd[field]["2. high"], xd[field]["3. low"], xd[field]["4. close"]],
         })).reverse();
-        this.candlestickChartData = data;
+        console.log("kog djavolaaaaaaaaa");
+        this.candlestickChartData = chartData;
+        const tbData = Object.keys(xd).map((field) => ({
+          date: new Date(field),
+          high: xd[field]["2. high"],
+          low: xd[field]["3. low"],
+          open: xd[field]["1. open"],
+          close: xd[field]["4. close"],
+          volume: xd[field]["5. volume"]
+        }))
+        this.tableData = tbData;
       },
       error: (error) => {
         console.log(error);
@@ -135,6 +146,15 @@ export class AppComponent implements OnInit {
           y: [xd[field]["1. open"], xd[field]["2. high"], xd[field]["3. low"], xd[field]["4. close"]],
         }));
         this.candlestickChartData = data.slice(0,50);
+        const tbData = Object.keys(xd).map((field) => ({
+          date: new Date(field),
+          high: xd[field]["2. high"],
+          low: xd[field]["3. low"],
+          open: xd[field]["1. open"],
+          close: xd[field]["4. close"],
+          volume: xd[field]["5. volume"]
+        }))
+        this.tableData = tbData;
       },
       error: (error) => {
         console.log(error);
@@ -162,6 +182,15 @@ export class AppComponent implements OnInit {
           x: new Date(field),
           y: [xd[field][`1a. open (USD)`], xd[field][`2a. high (USD)`], xd[field][`3a. low (USD)`], xd[field][`4a. close (USD)`]],
         }));
+        const tbData = Object.keys(xd).map((field) => ({
+          date: new Date(field),
+          high: xd[field]["2a. high (USD)"],
+          low: xd[field]["3a. low (USD)"],
+          open: xd[field]["1a. open (USD)"],
+          close: xd[field]["4a. close (USD)"],
+          volume: xd[field]["5. volume"]
+        }))
+        this.tableData = tbData;
         console.log(data);
         this.candlestickChartData = data.slice(0,50);
       },
@@ -233,6 +262,56 @@ export class AppComponent implements OnInit {
       else {
         //this.candlestickChartData = [];
       }
+    }
+    else {
+      if(this.selectedLegendItem){
+        const interval = this.selectedOptionTime.replace(/\s/g, '');
+        if(this.options.slice(0,5).includes(interval)){
+          console.log("ne moze, plati")  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< hendlaj ilegalno vreme na crypto
+        }
+        if(interval === this.options[5]){
+          const company = this.selectedLegendItem;
+          this.fetchCryptoData('DIGITAL_CURRENCY_DAILY',company);
+        }
+        else if(interval === this.options[6]){
+          const company = this.selectedLegendItem;
+          this.fetchCryptoData('DIGITAL_CURRENCY_WEEKLY',company);
+        }
+        else if(interval === this.options[7]){
+          const company = this.selectedLegendItem;
+          this.fetchCryptoData('DIGITAL_CURRENCY_MONTHLY',company);
+        }
+      }
+      else {
+        //this.candlestickChartData = [];
+      }
+    }
+  }
+
+  updateTable(): void{
+    if(this.companies){
+      //if(this.selectedLegendItem){
+        const interval = this.selectedOptionTime.replace(/\s/g, '');
+        if(this.options.slice(0,5).includes(interval)){
+          const company = this.selectedLegendItem;
+          this.fetchStocksIntradayData(company,interval);
+        }
+        else if(interval === this.options[5]){
+          const company = this.selectedLegendItem;
+          this.fetchStocksData('TIME_SERIES_DAILY_ADJUSTED',company);
+        }
+        else if(interval === this.options[6]){
+          const company = this.selectedLegendItem;
+          this.fetchStocksData('TIME_SERIES_WEEKLY',company);
+        }
+        else if(interval === this.options[7]){
+          const company = this.selectedLegendItem;
+          this.fetchStocksData('TIME_SERIES_MONTHLY',company);
+        }
+      //}
+      /*else {
+        //this.candlestickChartData = [];
+      }*/
     }
     else {
       if(this.selectedLegendItem){

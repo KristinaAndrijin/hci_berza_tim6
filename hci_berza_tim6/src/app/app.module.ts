@@ -26,6 +26,7 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTabsModule,
     MatTableModule,
     MatPaginatorModule,
+    DatePipe,
     MatIconModule,
     MaterialModule,
     MatAutocompleteModule,
@@ -67,7 +69,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatButtonModule,
     MatAutocompleteModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
