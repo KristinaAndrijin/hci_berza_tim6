@@ -31,22 +31,7 @@ export class AppComponent implements OnInit {
   selectedOptionTime = "Daily";
 
   constructor(private apiService:ApiService, private http: HttpClient) {  }
-  
-    onOptionSelected(event: any) {
-      this.selectedOption = event.target.value;
-      console.log('Selected option: ', this.selectedOption);
-    }
-  
-    onStartDateSelected(event: any) {
-      this.startDate = new Date(event.target.value);
-      console.log('Start date selected: ', this.startDate);
-    }
-  
-    onEndDateSelected(event: any) {
-      this.endDate = new Date(event.target.value);
-      console.log('End date selected: ', this.endDate);
-    }
-  
+      
     onRadioCompaniesSelected(event: any) {
       this.selectedRadioComp = event.target.value;
       console.log('Selected radio: ', this.selectedRadioComp);
@@ -84,6 +69,23 @@ export class AppComponent implements OnInit {
           }
         }
       }
+      else {
+        if(this.oneOrNoneSelected()){
+          const interval = this.selectedOptionTime.replace(/\s/g, '');
+          if(interval === this.options[5]){
+            const company = this.selectedItems[0].split(',')[0];
+            this.fetchCryptoData('DIGITAL_CURRENCY_DAILY',company);
+          }
+          else if(interval === this.options[6]){
+            const company = this.selectedItems[0].split(',')[0];
+            this.fetchCryptoData('DIGITAL_CURRENCY_WEEKLY',company);
+          }
+          else if(interval === this.options[7]){
+            const company = this.selectedItems[0].split(',')[0];
+            this.fetchCryptoData('DIGITAL_CURRENCY_MONTHLY',company);
+          }
+        }
+      }
     }
     onSelectAll(items: any) {
       console.log(items);
@@ -93,12 +95,11 @@ export class AppComponent implements OnInit {
       console.log('Item deselected:', item);
       console.log(this.selectedItems);
     }
+
     onOptionSelectedTimeBox(event: any) {
       console.log('Selected option: ', event.value);
     }
     
-
-
   async ngOnInit() {
     this.selectedItems = new Set();
     this.fetchCurrencies().then((list) => {
@@ -118,8 +119,6 @@ export class AppComponent implements OnInit {
       allowSearchFilter: true
     };
   }
-
-  
   
   fetchStocksIntradayData(symbol: string, time:string) {
     this.apiService.getStocksDataIntraday(symbol, time).subscribe({
@@ -149,6 +148,27 @@ export class AppComponent implements OnInit {
           x: new Date(field),
           y: [xd[field]["1. open"], xd[field]["2. high"], xd[field]["3. low"], xd[field]["4. close"]],
         }));
+        this.candlestickChartData = data.slice(0,50);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log("Data fetch completed.");
+      },
+    });
+  }
+  fetchCryptoData(func: string, symbol: string) {
+    this.apiService.getCryptoData(func, symbol).subscribe({
+      next: (result) => {
+        if(result["Error message"]){ console.log('error!') }
+        const xd = result[Object.keys(result)[1]];
+        console.log(result);
+        const data = Object.keys(xd).map((field) => ({
+          x: new Date(field),
+          y: [xd[field][`1a. open (USD)`], xd[field][`2a. high (USD)`], xd[field][`3a. low (USD)`], xd[field][`4a. close (USD)`]],
+        }));
+        console.log(data);
         this.candlestickChartData = data.slice(0,50);
       },
       error: (error) => {
