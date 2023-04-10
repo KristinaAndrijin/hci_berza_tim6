@@ -48,44 +48,7 @@ export class AppComponent implements OnInit {
     onItemSelect(item: any) {
       console.log(item);
       console.log(this.selectedItems);
-      if(this.companies){
-        if(this.oneOrNoneSelected()){
-          const interval = this.selectedOptionTime.replace(/\s/g, '');
-          if(this.options.slice(0,5).includes(interval)){
-            const company = this.selectedOptionTime[0].split(',')[0];
-            this.fetchStocksIntradayData(company,interval);
-          }
-          else if(interval === this.options[5]){
-            const company = this.selectedOptionTime[0].split(',')[0];
-            this.fetchStocksData('TIME_SERIES_DAILY_ADJUSTED',company);
-          }
-          else if(interval === this.options[6]){
-            const company = this.selectedItems[0].split(',')[0];
-            this.fetchStocksData('TIME_SERIES_WEEKLY',company);
-          }
-          else if(interval === this.options[7]){
-            const company = this.selectedItems[0].split(',')[0];
-            this.fetchStocksData('TIME_SERIES_MONTHLY',company);
-          }
-        }
-      }
-      else {
-        if(this.oneOrNoneSelected()){
-          const interval = this.selectedOptionTime.replace(/\s/g, '');
-          if(interval === this.options[5]){
-            const company = this.selectedItems[0].split(',')[0];
-            this.fetchCryptoData('DIGITAL_CURRENCY_DAILY',company);
-          }
-          else if(interval === this.options[6]){
-            const company = this.selectedItems[0].split(',')[0];
-            this.fetchCryptoData('DIGITAL_CURRENCY_WEEKLY',company);
-          }
-          else if(interval === this.options[7]){
-            const company = this.selectedItems[0].split(',')[0];
-            this.fetchCryptoData('DIGITAL_CURRENCY_MONTHLY',company);
-          }
-        }
-      }
+      
     }
     onSelectAll(items: any) {
       console.log(items);
@@ -94,10 +57,13 @@ export class AppComponent implements OnInit {
     onItemDeSelect(item: any) {
       console.log('Item deselected:', item);
       console.log(this.selectedItems);
+      this.updateCharts();
     }
 
     onOptionSelectedTimeBox(event: any) {
       console.log('Selected option: ', event.value);
+      this.selectedOptionTime = event.value;
+      this.updateCharts();
     }
     
   async ngOnInit() {
@@ -219,6 +185,47 @@ export class AppComponent implements OnInit {
   }
   moreSelected(): boolean{
     return this.selectedItems.length > 1
+  }
+
+  updateCharts(): void{
+    if(this.companies){
+      if(this.oneOrNoneSelected()){
+        const interval = this.selectedOptionTime.replace(/\s/g, '');
+        if(this.options.slice(0,5).includes(interval)){
+          const company = this.selectedOptionTime[0].split(',')[0];
+          this.fetchStocksIntradayData(company,interval);
+        }
+        else if(interval === this.options[5]){
+          const company = this.selectedOptionTime[0].split(',')[0];
+          this.fetchStocksData('TIME_SERIES_DAILY_ADJUSTED',company);
+        }
+        else if(interval === this.options[6]){
+          const company = this.selectedItems[0].split(',')[0];
+          this.fetchStocksData('TIME_SERIES_WEEKLY',company);
+        }
+        else if(interval === this.options[7]){
+          const company = this.selectedItems[0].split(',')[0];
+          this.fetchStocksData('TIME_SERIES_MONTHLY',company);
+        }
+      }
+    }
+    else {
+      if(this.oneOrNoneSelected()){
+        const interval = this.selectedOptionTime.replace(/\s/g, '');
+        if(interval === this.options[5]){
+          const company = this.selectedItems[0].split(',')[0];
+          this.fetchCryptoData('DIGITAL_CURRENCY_DAILY',company);
+        }
+        else if(interval === this.options[6]){
+          const company = this.selectedItems[0].split(',')[0];
+          this.fetchCryptoData('DIGITAL_CURRENCY_WEEKLY',company);
+        }
+        else if(interval === this.options[7]){
+          const company = this.selectedItems[0].split(',')[0];
+          this.fetchCryptoData('DIGITAL_CURRENCY_MONTHLY',company);
+        }
+      }
+    }
   }
 
 }
