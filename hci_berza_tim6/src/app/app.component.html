@@ -1,31 +1,65 @@
 <div class="row">
   <div class="col">
-    <ng-multiselect-dropdown (change)="onOptionSelected($event)"
-  [placeholder]="'Odaberite valutu/e'"
-  [settings]="dropdownSettings"
-  [data]="dropdownList"
-  [(ngModel)]="selectedItems"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)"
-  (onDeSelect)="onItemDeSelect($event)"
-  class="custom-dropdown"
->
-</ng-multiselect-dropdown>
+    <div class="row">
+      <div class="col radios">
+        <div class="form-check radios" *ngFor="let radio of ['currencies', 'companies']; let i = index">
+          <input class="form-check-input" type="radio" name="currencyOrCompany" [value]="radio" (change)="onRadioCompaniesSelected($event)"
+          [checked]="i === 0">
+          <label class="form-check-label">
+            {{radio}}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <ng-container *ngIf="companies; else option2">
+        <ng-multiselect-dropdown
+          [placeholder]="'Choose company'"
+          [settings]="dropdownSettings"
+          [data]="dropdownList"
+          [(ngModel)]="selectedItems"
+          (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)"
+          (onDeSelect)="onItemDeSelect($event)"
+          class="custom-dropdown"
+        >
+        </ng-multiselect-dropdown>
+      </ng-container>
+      
+      <ng-template #option2>
+        <ng-multiselect-dropdown
+          [placeholder]="'Choose currency'"
+          [settings]="dropdownSettings"
+          [data]="csvData"
+          [(ngModel)]="selectedItems"
+          (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)"
+          (onDeSelect)="onItemDeSelect($event)"
+          class="custom-dropdown"
+        >
+        </ng-multiselect-dropdown>
+      </ng-template>
+      
+    </div>
   </div>
+  
   <div class="col">
     <input type="date" class="form-control" (change)="onStartDateSelected($event)">
 
     <input type="date" class="form-control" (change)="onEndDateSelected($event)">
   </div>
   <div class="col radios">
-    <div class="form-check radios" *ngFor="let radio of ['high', 'low', 'volume', 'open', 'close']">
-      <input class="form-check-input" type="radio" name="radio-buttons" [value]="radio" (change)="onRadioSelected($event)">
+    <div class="form-check radios" *ngFor="let radio of ['high', 'low', 'volume', 'open', 'close']; let i = index">
+      <input class="form-check-input" type="radio" name="parameters" [value]="radio" (change)="onRadioParamSelected($event)"
+      [checked]="i === 0">
       <label class="form-check-label">
         {{radio}}
       </label>
     </div>
   </div>
 </div>
+
+
 <div id="chart">
   <app-candlestick-chart [dataSet]="candlestickChartData"></app-candlestick-chart>
 </div>

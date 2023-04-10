@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FormControl } from '@angular/forms';
 import { ApiService } from './services/api.service';
+import { HttpClient } from '@angular/common/http';
+
+
 
 
 @Component({
@@ -15,13 +18,17 @@ export class AppComponent implements OnInit {
   selectedOption: string = "";
   startDate: Date = new Date();
   endDate: Date = new Date();
-  selectedRadio: string = "";
+  selectedRadioComp: string = "currencies";
+  selectedRadioParam: string = "high";
   selectedItems: Set<string> = new Set();
   candlestickChartData: any[] = [];
   dropdownList:any = [];
   dropdownSettings:any = {};
+  csvData: any = [];
+  selectedOptionSimple: string = "";
+  companies: boolean = false;
 
-  constructor(private apiService:ApiService) {  }
+  constructor(private apiService:ApiService, private http: HttpClient) {  }
   
     onOptionSelected(event: any) {
       this.selectedOption = event.target.value;
@@ -38,9 +45,15 @@ export class AppComponent implements OnInit {
       console.log('End date selected: ', this.endDate);
     }
   
-    onRadioSelected(event: any) {
-      this.selectedRadio = event.target.value;
-      console.log('Selected radio: ', this.selectedRadio);
+    onRadioCompaniesSelected(event: any) {
+      this.selectedRadioComp = event.target.value;
+      console.log('Selected radio: ', this.selectedRadioComp);
+      this.companies = this.selectedRadioComp == "companies"
+    }
+
+    onRadioParamSelected(event: any) {
+      this.selectedRadioParam = event.target.value;
+      console.log('Selected radio: ', this.selectedRadioParam);
     }
 
     onItemSelect(item: any) {
@@ -65,7 +78,9 @@ export class AppComponent implements OnInit {
     }).catch((error) => {
       console.error(error);
     });
-    console.log(this.dropdownList);
+    this.loadCsvFile().then(() => {
+      //console.log('Dropdown list:', this.csvData);
+    });
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -111,6 +126,26 @@ export class AppComponent implements OnInit {
       console.error(error);
       return null;
     }
+  }
+
+  loadCsvFile(): Promise<void> {
+    const csvUrl = 'assets/digital_currency_list.csv';
+    return new Promise((resolve, reject) => {
+      this.http.get(csvUrl, { responseType: 'text' }).subscribe(data => {
+        const rows = data.split('\n');
+        const headerRow = rows[0];
+        const dataRows = rows.slice(1, -1);
+        const options = dataRows.map((row) => {
+          const values = row.split(',');
+          return values[0].toString().trim() + ", " + values[1].toString().trim();
+        });
+        this.csvData = options;
+        resolve();
+      }, error => {
+        console.error('Error loading CSV file:', error);
+        reject(error);
+      });
+    });
   }
 
 }

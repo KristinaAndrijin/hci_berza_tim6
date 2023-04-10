@@ -17,9 +17,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ServicesModule } from './services/services.module';
 
+
 import { MaterialModule } from './material.module';
 import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+
+
 
 @NgModule({
   declarations: [
