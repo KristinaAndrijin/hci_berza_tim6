@@ -1,6 +1,5 @@
 :host ::ng-deep span.selected-item,
-:host ::ng-deep .multiselect-dropdown[_ngcontent-ltx-c1] .dropdown-btn[_ngcontent-ltx-c1],
-:host ::ng-deep .selected-item-container[_ngcontent-ltx-c1] .selected-item[_ngcontent-ltx-c1] {
+:host ::ng-deep .multiselect-dropdown[_ngcontent-ltx-c1] .dropdown-btn[_ngcontent-ltx-c1], .selected-item[_ngcontent-ltx-c1] {
   border: 1px solid black !important;
   margin-right: 4px !important;
   margin-bottom: 4px !important;
@@ -11,6 +10,15 @@
   float: left !important;
 }
 
+:host ::ng-deep .selected-item-container[_ngcontent-ltx-c1] {
+  max-height: 50px !important;
+  overflow-y: auto !important;
+}
+
+:host ::ng-deep span.dropdown-btn {
+  max-height: 100px !important;
+  overflow-y: auto !important;
+}
 
 
 :host ::ng-deep .multiselect-item-checkbox[_ngcontent-lcx-c1] input[type=checkbox]+div[_ngcontent-lcx-c1]:before {
@@ -66,7 +74,7 @@
 
   .row
   {
-    padding: 20px;
+    padding-left: 20px;
   }
   
 
@@ -167,6 +175,8 @@
 
   :host ::ng-deep .multiselect-dropdown[_ngcontent-dqd-c6] {
     background-color: white !important;
+    max-height: 50px; /* set the maximum height of the dropdown list container */
+   overflow-y: auto;
   }
   
 
@@ -286,3 +296,19 @@ html {
   width: 49%;
   margin: 30px;
 }
+
+
+
+input[type="radio"] {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+
+.radio-text {
+  margin-right: 10px;
+  color: white;
+}
+

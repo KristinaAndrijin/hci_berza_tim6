@@ -4,11 +4,11 @@
     <div class="col">
       <div class="row">
         <div class="col radios">
-          <div class="form-check radios" *ngFor="let radio of ['currencies', 'companies']; let i = index">
+          <div class="form-check radios" *ngFor="let radio of ['Currencies', 'Companies']; let i = index">
             <input class="form-check-input" type="radio" name="currencyOrCompany" [value]="radio" (change)="onRadioCompaniesSelected($event)"
             [checked]="i === 0">
             <label class="form-check-label">
-              {{radio}}
+              <span class="radio-text">{{radio}}</span>
             </label>
           </div>
         </div>
@@ -64,15 +64,17 @@
     
     </div>
     <div class="col radios">
-      <div class="form-check radios" *ngFor="let radio of ['high', 'low', 'volume', 'open', 'close']; let i = index">
+      <div class="form-check radios" *ngFor="let radio of ['High', 'Low', 'Volume', 'Open', 'Close']; let i = index">
+        <label class="form-check-label label-below">
         <input class="form-check-input" type="radio" name="parameters" [value]="radio" (change)="onRadioParamSelected($event)"
         [checked]="i === 0">
-        <label class="form-check-label">
-          {{radio}}
+        <span class="radio-text">{{radio}}</span>
         </label>
       </div>
     </div>
   </div>
+
+  
 
 <div id="chart-and-table">
 

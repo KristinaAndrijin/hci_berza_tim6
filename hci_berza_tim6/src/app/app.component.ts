@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
     onRadioCompaniesSelected(event: any) {
       this.selectedRadioComp = event.target.value;
       console.log('Selected radio: ', this.selectedRadioComp);
-      this.companies = this.selectedRadioComp == "companies"
+      this.companies = this.selectedRadioComp == "Companies"
       this.selectedItems = new Set();
     }
 
