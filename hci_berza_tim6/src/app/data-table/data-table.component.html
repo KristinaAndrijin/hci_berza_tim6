@@ -1,40 +1,50 @@
-<!-- Include the necessary modules for MatTable and MatPaginator -->
-<!-- Import styles for Angular Material components -->
-<link href="https://cdn.jsdelivr.net/npm/@angular/material/prebuilt-themes/deeppurple-amber.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Add Material imports as needed -->
+<!-- Example: -->
+<!-- <mat-table></mat-table> -->
+<!-- <mat-paginator></mat-paginator> -->
 
-<!-- Add the MatTable component and MatPaginator directive to your component's template -->
-<div class="mat-elevation-z8">
-  <mat-table [dataSource]="dataSource" class="mat-table">
-    <!-- Define your table columns here -->
-    <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Footer Text </mat-footer-cell> <!-- Define footer cell template -->
-    </ng-container>
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Footer Text </mat-footer-cell> <!-- Define footer cell template -->
-    </ng-container>
-    <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Footer Text </mat-footer-cell> <!-- Define footer cell template -->
-    </ng-container>
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-      <mat-footer-cell *matFooterCellDef> Footer Text </mat-footer-cell> <!-- Define footer cell template -->
-    </ng-container>
-
-    <!-- Define the header row template -->
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-
-    
-
-    <!-- Define the data row template -->
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-  <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
-</div>
+<mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedTabChange)="updateTableData()">
+    <mat-tab label="Tab 1"> <!-- Add label and content for Tab 1 -->
+      <!-- Add content for Tab 1 here -->
+    </mat-tab>
+    <mat-tab label="Tab 2"> <!-- Add label and content for Tab 2 -->
+      <!-- Add content for Tab 2 here -->
+    </mat-tab>
+    <mat-tab label="Tab 3"> <!-- Add label and content for Tab 3 -->
+      <!-- Add content for Tab 3 here -->
+    </mat-tab>
+  </mat-tab-group>
+  
+<div class="table-container">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+      <!-- Define table columns -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  
+    </mat-table>
+  
+    <mat-paginator [length]="dataSource.data.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      (page)="onPageChanged($event)"></mat-paginator>
+  </div>
+  
