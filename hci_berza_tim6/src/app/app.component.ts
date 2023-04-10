@@ -27,6 +27,8 @@ export class AppComponent implements OnInit {
   csvData: any = [];
   selectedOptionSimple: string = "";
   companies: boolean = false;
+  options = ['Daily', 'Weekly', 'Monthly', 'Intraday 5', 'Intraday 15', 'Intraday 30', 'Intraday 60'];
+  selectedOptionTime = "Daily";
 
   constructor(private apiService:ApiService, private http: HttpClient) {  }
   
@@ -70,6 +72,10 @@ export class AppComponent implements OnInit {
       console.log('Item deselected:', item);
       console.log(this.selectedItems);
     }
+    onOptionSelectedTimeBox(event: any) {
+      console.log('Selected option: ', event.value);
+    }
+    
 
 
   async ngOnInit() {

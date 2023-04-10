@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ServicesModule } from './services/services.module';
+import { MatSelectModule } from '@angular/material/select';
 
 
 import { MaterialModule } from './material.module';
@@ -46,7 +47,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MaterialModule,
     MatAutocompleteModule,
     NgMultiSelectDropDownModule.forRoot(),
-    ScrollingModule
+    ScrollingModule,
+    MatSelectModule
   ],
   exports: [
     BrowserAnimationsModule,
