@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FormControl } from '@angular/forms';
 import { ApiService } from './services/api.service';
+import { HttpClient } from '@angular/common/http';
+
+
 
 
 @Component({
@@ -15,28 +18,19 @@ export class AppComponent implements OnInit {
   selectedOption: string = "";
   startDate: Date = new Date();
   endDate: Date = new Date();
-<<<<<<< Updated upstream
-  selectedRadio: string = "";
+  selectedRadioComp: string = "currencies";
+  selectedRadioParam: string = "high";
   selectedItems: Set<string> = new Set();
   candlestickChartData: any[] = [];
   dropdownList:any = [];
   dropdownSettings:any = {};
-=======
-  selectedRadioComp: string = "currencies";
-  selectedRadioParam: string = "high";
-  selectedItems: any;
-  candlestickChartData: any[] = [];
-  dropdownList:any = [];
-  dropdownSettings:any = {};
   csvData: any = [];
-  selectedTimeInterval: string = "1 min";
   selectedOptionSimple: string = "";
   companies: boolean = false;
-  options = ['1min','5min', '15min', '30min', '60min', 'Daily', 'Weekly', 'Monthly'];
+  options = ['Daily', 'Weekly', 'Monthly', 'Intraday 5', 'Intraday 15', 'Intraday 30', 'Intraday 60'];
   selectedOptionTime = "Daily";
->>>>>>> Stashed changes
 
-  constructor(private apiService:ApiService) {  }
+  constructor(private apiService:ApiService, private http: HttpClient) {  }
   
     onOptionSelected(event: any) {
       this.selectedOption = event.target.value;
@@ -53,36 +47,22 @@ export class AppComponent implements OnInit {
       console.log('End date selected: ', this.endDate);
     }
   
-    onRadioSelected(event: any) {
-      this.selectedRadio = event.target.value;
-      console.log('Selected radio: ', this.selectedRadio);
+    onRadioCompaniesSelected(event: any) {
+      this.selectedRadioComp = event.target.value;
+      console.log('Selected radio: ', this.selectedRadioComp);
+      this.companies = this.selectedRadioComp == "companies"
+      this.selectedItems = new Set();
+    }
+
+    onRadioParamSelected(event: any) {
+      this.selectedRadioParam = event.target.value;
+      console.log('Selected radio: ', this.selectedRadioParam);
+      this.selectedItems = new Set();
     }
 
     onItemSelect(item: any) {
       console.log(item);
-      console.log(this.selectedItems)
-      console.log(this.selectedItems.length)
-      if(this.companies){
-        if(this.oneOrNoneSelected()){
-          const interval = this.selectedTimeInterval.replace(/\s/g, '');
-          if(this.options.slice(0,5).includes(interval)){
-            const company = this.selectedItems[0].split(',')[0];
-            this.fetchStocksIntradayData(company,interval);
-          }
-          else if(interval === this.options[5]){
-            const company = this.selectedItems[0].split(',')[0];
-            this.fetchStocksData('TIME_SERIES_DAILY_ADJUSTED',company);
-          }
-          else if(interval === this.options[6]){
-            const company = this.selectedItems[0].split(',')[0];
-            this.fetchStocksData('TIME_SERIES_WEEKLY',company);
-          }
-          else if(interval === this.options[7]){
-            const company = this.selectedItems[0].split(',')[0];
-            this.fetchStocksData('TIME_SERIES_MONTHLY',company);
-          }
-        }
-      }
+      console.log(this.selectedItems);
     }
     onSelectAll(items: any) {
       console.log(items);
@@ -92,24 +72,23 @@ export class AppComponent implements OnInit {
       console.log('Item deselected:', item);
       console.log(this.selectedItems);
     }
-<<<<<<< Updated upstream
-=======
     onOptionSelectedTimeBox(event: any) {
       console.log('Selected option: ', event.value);
-      this.selectedTimeInterval = event.value;
     }
     
->>>>>>> Stashed changes
 
 
   async ngOnInit() {
+    this.fetchData();
     this.selectedItems = new Set();
     this.fetchCurrencies().then((list) => {
       this.dropdownList = list;
     }).catch((error) => {
       console.error(error);
     });
-    console.log(this.dropdownList);
+    this.loadCsvFile().then(() => {
+      //console.log('Dropdown list:', this.csvData);
+    });
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -119,9 +98,11 @@ export class AppComponent implements OnInit {
       allowSearchFilter: true
     };
   }
+
   
-  fetchStocksIntradayData(symbol: string, time:string) {
-    this.apiService.getStocksDataIntraday(symbol, time).subscribe({
+  
+  fetchData() {
+    this.apiService.getStocksDataIntraday("IBM", "60min").subscribe({
       next: (result) => {
         const xd = result[Object.keys(result)[1]];
         console.log(result);
@@ -130,25 +111,6 @@ export class AppComponent implements OnInit {
           y: [xd[field]["1. open"], xd[field]["2. high"], xd[field]["3. low"], xd[field]["4. close"]],
         })).reverse();
         this.candlestickChartData = data;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-      complete: () => {
-        console.log("Data fetch completed.");
-      },
-    });
-  }
-  fetchStocksData(func: string, symbol: string) {
-    this.apiService.getStocksData(func, symbol).subscribe({
-      next: (result) => {
-        const xd = result[Object.keys(result)[1]];
-        console.log(result);
-        const data = Object.keys(xd).map((field) => ({
-          x: new Date(field),
-          y: [xd[field]["1. open"], xd[field]["2. high"], xd[field]["3. low"], xd[field]["4. close"]],
-        }));
-        this.candlestickChartData = data.slice(0,50);
       },
       error: (error) => {
         console.log(error);
@@ -174,8 +136,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-<<<<<<< Updated upstream
-=======
   loadCsvFile(): Promise<void> {
     const csvUrl = 'assets/digital_currency_list.csv';
     return new Promise((resolve, reject) => {
@@ -196,11 +156,4 @@ export class AppComponent implements OnInit {
     });
   }
 
-  oneOrNoneSelected(): boolean {
-    return this.selectedItems.length === 1 || this.selectedItems.length === 0 || this.selectedItems.length === undefined 
-  }
-  moreSelected(): boolean{
-    return this.selectedItems.length > 1
-  }
->>>>>>> Stashed changes
 }
