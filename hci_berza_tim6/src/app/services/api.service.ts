@@ -25,7 +25,7 @@ export class ApiService {
     const response = await fetch(`https://www.alphavantage.co/query?function=LISTING_STATUS&apikey=${this.apikey}`);
     const data = await response.text();
     const lines = data.trim().split('\n');
-    const symbols = lines.slice(1).map(line => line.split(',')[0]);
+    const symbols = lines.slice(1).map(line => line.split(',')[0] + ", " + line.split(',')[1]);
     return symbols;
   }
 

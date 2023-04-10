@@ -43,6 +43,19 @@ export class AppComponent implements OnInit {
       console.log('Selected radio: ', this.selectedRadio);
     }
 
+    onItemSelect(item: any) {
+      console.log(item);
+      console.log(this.selectedItems);
+    }
+    onSelectAll(items: any) {
+      console.log(items);
+    }
+   
+    onItemDeSelect(item: any) {
+      console.log('Item deselected:', item);
+      console.log(this.selectedItems);
+    }
+
 
   async ngOnInit() {
     this.fetchData();
@@ -62,13 +75,8 @@ export class AppComponent implements OnInit {
       allowSearchFilter: true
     };
   }
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
-  }
- 
+
+  
   
   fetchData() {
     this.apiService.getStocksDataIntraday("IBM", "60min").subscribe({
