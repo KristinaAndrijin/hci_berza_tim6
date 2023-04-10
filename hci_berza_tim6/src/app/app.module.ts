@@ -19,6 +19,7 @@ import { ServicesModule } from './services/services.module';
 
 import { MaterialModule } from './material.module';
 import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CandlestickChartComponent } from './candlestick-chart/candlestick-chart
     MatIconModule,
     MaterialModule,
     MatAutocompleteModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    ScrollingModule
   ],
   exports: [
     BrowserAnimationsModule,

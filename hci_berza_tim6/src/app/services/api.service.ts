@@ -20,4 +20,13 @@ export class ApiService {
   public getStocksData(func:string, symbol:string): Observable<any>{ 
     return this.http.get<any>(`https://www.alphavantage.co/query?function=${func}&symbol=${symbol}&outputsize=compact&apikey=${this.apikey}`);
   }
+
+  async getCurrencies() {
+    const response = await fetch(`https://www.alphavantage.co/query?function=LISTING_STATUS&apikey=${this.apikey}`);
+    const data = await response.text();
+    const lines = data.trim().split('\n');
+    const symbols = lines.slice(1).map(line => line.split(',')[0]);
+    return symbols;
+  }
+
 }

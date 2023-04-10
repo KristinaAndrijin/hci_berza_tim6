@@ -1,36 +1,6 @@
-<!---
-<mat-form-field>
-  <input matInput placeholder="Select options" [matAutocomplete]="auto" [formControl]="myControl" (blur)="onBlur()" (focus)="onFocus()">
-  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-    <mat-option *ngFor="let option of filteredOptions" [value]="option">
-      <mat-checkbox [checked]="option.selected">{{option.name}}</mat-checkbox>
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
-
-<mat-selection-list #selectedOptions (selectionChange)="onSelectedValuesChange($event)">
-  <mat-list-option *ngFor="let option of selectedValues" [value]="option">
-    {{option.name}}
-  </mat-list-option>
-</mat-selection-list>
--->
-
-<!--
-<ng-multiselect-dropdown
-  [placeholder]="'Odaberite valutu/e'"
-  [settings]="dropdownSettings"
-  [data]="dropdownList"
-  [(ngModel)]="selectedItems"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)"
-  class="custom-dropdown"
->
-</ng-multiselect-dropdown>
--->
-
 <div class="row">
   <div class="col">
-    <ng-multiselect-dropdown
+    <ng-multiselect-dropdown (change)="onOptionSelected($event)"
   [placeholder]="'Odaberite valutu/e'"
   [settings]="dropdownSettings"
   [data]="dropdownList"

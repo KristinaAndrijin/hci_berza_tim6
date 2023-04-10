@@ -44,21 +44,15 @@ export class AppComponent implements OnInit {
     }
 
 
-  ngOnInit() {
+  async ngOnInit() {
     this.fetchData();
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Option 1' },
-      { item_id: 2, item_text: 'Option 2' },
-      { item_id: 3, item_text: 'Option 3' },
-      { item_id: 4, item_text: 'Option 4' },
-      { item_id: 5, item_text: 'Option 5' },
-      { item_id: 6, item_text: 'Option 6' },
-      { item_id: 7, item_text: 'Option 7' },
-      { item_id: 8, item_text: 'Option 8' },
-      { item_id: 9, item_text: 'Option 9' },
-      { item_id: 10, item_text: 'Option 10' }
-    ];
     this.selectedItems = new Set();
+    this.fetchCurrencies().then((list) => {
+      this.dropdownList = list;
+    }).catch((error) => {
+      console.error(error);
+    });
+    console.log(this.dropdownList);
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -95,4 +89,20 @@ export class AppComponent implements OnInit {
       },
     });
   }
+
+  async fetchCurrencies() {
+    console.log('hi');
+    let list = []
+    try {
+      const currencies = await this.apiService.getCurrencies();
+      for (let i=0; i < currencies.length; i++) {
+        list.push({ item_id: i+1, item_text: currencies[i] });
+      }
+      return list;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
 }
