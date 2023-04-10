@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -7,11 +7,12 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css']
 })
-export class DataTableComponent implements OnInit {
+export class DataTableComponent implements OnInit, OnChanges {
 
   // Add initializers for paginator and dataSource
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource!: MatTableDataSource<any>;
+  @Input() selectedItems?: any[]; 
 
   // Other component properties
   selectedTabIndex: number = 0;
@@ -24,7 +25,13 @@ export class DataTableComponent implements OnInit {
   ngOnInit() {
     // Initialize dataSource with an empty MatTableDataSource
     this.dataSource = new MatTableDataSource<any>([]);
-    this.updateTableData();
+    this.updateTableData(); // Pass the selectedItems property to fetch data
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['selectedItems']) {
+      console.log('selectedItems lmaoooo: ', this.selectedItems);
+    }
   }
 
   tab1Data = [
@@ -50,23 +57,17 @@ export class DataTableComponent implements OnInit {
 
   updateTableData() {
     let data: any[]; // Specify the type of data as any[]
-    switch (this.selectedTabIndex) {
-      case 0:
-        data = this.tab1Data;
-        break;
-      case 1:
-        data = this.tab2Data;
-        break;
-      case 2:
-        data = this.tab3Data;
-        break;
-      default:
-        data = [];
+    // Use the selectedItems property to fetch appropriate data
+    if (this.selectedItems) {
+      data = this.selectedItems;
+    } else {
+      data = [];
     }
-
+  
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
   }
+  
 
   onPageChanged(event: any) {
     this.pageSize = event.pageSize;
