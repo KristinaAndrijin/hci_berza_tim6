@@ -32,9 +32,9 @@
 
   .radios {
     display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 10px;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
   }
 
   .form-check-input:checked {
@@ -42,10 +42,31 @@
     border-color: #CE00D3;
   }
   
-
+  #chart-and-table {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+  }
+  
   #chart {
-    max-width: 650px;
-    margin: 35px auto;
+    flex: 1;
+    margin-left: 20px;
+    width: 47%;
+    position: absolute;
+    left: 0;
+  }
+  
+  #data-table {
+    flex: 1;
+   width: 47%;
+   position: absolute;
+    right: 0;
+    margin-right: 20px;
+  }
+
+  .row
+  {
+    padding: 20px;
   }
   
 
@@ -159,7 +180,6 @@
     transform: rotate(-45deg) scale(1);
   }
 
-
   :host ::ng-deep .mat-form-field-appearance-fill ,
   :host ::ng-deep .mat-form-field-flex {
     align-items: flex-start;
@@ -200,6 +220,7 @@
   :host ::ng-deep .mat-select-value {
     color: #b53f92 !important;
   }
+
   
   :host ::ng-deep .mat-select-panel,
   :host ::ng-deep .mat-option.mat-selected:not(.mat-option-multiple) {
