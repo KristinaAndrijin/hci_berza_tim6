@@ -13,3 +13,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     float: left;
 }
   
+:host ::ng-deep .mat-primary,
+  :host ::ng-deep .mat-option.mat-selected:not(.mat-option-disabled),
+  :host ::ng-deep .mat-option-text {
+    color: palevioletred !important;
+  }
