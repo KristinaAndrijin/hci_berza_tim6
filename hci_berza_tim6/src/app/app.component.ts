@@ -89,6 +89,7 @@ export class AppComponent implements OnInit {
   fetchStocksIntradayData(symbol: string, time:string) {
     this.apiService.getStocksDataIntraday(symbol, time).subscribe({
       next: (result) => {
+        if(result["Error Message"]){ console.log('error!') }
         const xd = result[Object.keys(result)[1]];
         console.log(result);
         const data = Object.keys(xd).map((field) => ({
@@ -108,6 +109,7 @@ export class AppComponent implements OnInit {
   fetchStocksData(func: string, symbol: string) {
     this.apiService.getStocksData(func, symbol).subscribe({
       next: (result) => {
+        if(result["Error Message"]){ console.log('error!') }
         const xd = result[Object.keys(result)[1]];
         console.log(result);
         const data = Object.keys(xd).map((field) => ({
@@ -127,7 +129,10 @@ export class AppComponent implements OnInit {
   fetchCryptoData(func: string, symbol: string) {
     this.apiService.getCryptoData(func, symbol).subscribe({
       next: (result) => {
-        if(result["Error message"]){ console.log('error!') }
+        if(result["Error Message"])
+        { 
+          console.log('error!') //<<<<<<<<<<< handluj error ovde
+        }
         const xd = result[Object.keys(result)[1]];
         console.log(result);
         const data = Object.keys(xd).map((field) => ({
