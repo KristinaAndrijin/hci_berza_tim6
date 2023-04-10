@@ -79,7 +79,10 @@
 <div id="chart-and-table">
 
   <div id="chart" class="white-background">
-    <app-candlestick-chart *ngIf='oneOrNoneSelected()' [dataSet]="candlestickChartData"></app-candlestick-chart>
+    <div id="legend"><p>Legend</p>
+      <div *ngFor='let item of selectedItems' (click)="selectItemInLegend($event)">{{item.split(',')[0]}}</div>
+    </div>
+    <app-candlestick-chart [title]="selectedLegendItem" [dataSet]="candlestickChartData"></app-candlestick-chart>
   </div>
 
   <div id="data-table" class="white-background">

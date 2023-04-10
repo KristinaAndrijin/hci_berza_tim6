@@ -27,6 +27,7 @@ export type ChartOptions = {
 })
 export class CandlestickChartComponent implements OnChanges{
   @Input() public dataSet: any[] = [];
+  @Input() public title: any;
   @ViewChild("chart")
   chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
@@ -44,7 +45,7 @@ export class CandlestickChartComponent implements OnChanges{
         type: "candlestick"
       },
       title: {
-        text: "",
+        text: this.title,
         align: "left"
       },
       tooltip: {
