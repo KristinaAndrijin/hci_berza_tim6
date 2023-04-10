@@ -49,11 +49,13 @@ export class AppComponent implements OnInit {
       this.selectedRadioComp = event.target.value;
       console.log('Selected radio: ', this.selectedRadioComp);
       this.companies = this.selectedRadioComp == "companies"
+      this.selectedItems = new Set();
     }
 
     onRadioParamSelected(event: any) {
       this.selectedRadioParam = event.target.value;
       console.log('Selected radio: ', this.selectedRadioParam);
+      this.selectedItems = new Set();
     }
 
     onItemSelect(item: any) {
