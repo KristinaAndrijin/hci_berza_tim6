@@ -231,12 +231,15 @@ export class AppComponent implements OnInit {
         }
       }
       else {
-
+        //this.candlestickChartData = [];
       }
     }
     else {
       if(this.selectedLegendItem){
         const interval = this.selectedOptionTime.replace(/\s/g, '');
+        if(this.options.slice(0,5).includes(interval)){
+          console.log("ne moze, plati")  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< hendlaj ilegalno vreme na crypto
+        }
         if(interval === this.options[5]){
           const company = this.selectedLegendItem;
           this.fetchCryptoData('DIGITAL_CURRENCY_DAILY',company);
@@ -251,7 +254,7 @@ export class AppComponent implements OnInit {
         }
       }
       else {
-
+        //this.candlestickChartData = [];
       }
     }
   }

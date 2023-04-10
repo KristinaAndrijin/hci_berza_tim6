@@ -27,7 +27,7 @@ export type ChartOptions = {
 })
 export class CandlestickChartComponent implements OnChanges{
   @Input() public dataSet: any[] = [];
-  @Input() public title: any;
+  @Input() public title?: string;
   @ViewChild("chart")
   chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
@@ -74,6 +74,13 @@ export class CandlestickChartComponent implements OnChanges{
           data: changes['dataSet'].currentValue
         }
       ];
+      this.chart.updateOptions(this.chartOptions);
+    }
+    if (changes['title']){
+      this.chartOptions.title = {
+        text: this.title,
+        align:"left"
+      }
       this.chart.updateOptions(this.chartOptions);
     }
   }
