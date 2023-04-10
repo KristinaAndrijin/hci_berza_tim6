@@ -59,14 +59,29 @@
   #chart {
     flex: 1;
     margin-left: 20px;
-    width: 47%;
+    width: 45%;
     position: absolute;
     left: 0;
+  }
+
+  #legend {
+    flex: 1;
+    margin-left: 20px;
+    width: 60px;
+    position: absolute;
+    left: 46.75%;
+    background-color: aqua;
+    height: 500px;
+  }
+
+  .legend_item:hover {
+    background-color: pink;
+    cursor: pointer;
   }
   
   #data-table {
     flex: 1;
-   width: 47%;
+   width: 45%;
    position: absolute;
     right: 0;
     margin-right: 20px;
@@ -297,7 +312,10 @@ html {
   margin: 30px;
 }
 
-
+.selected_legend {
+  color: aqua;
+  background-color: #CE00D3;
+}
 
 input[type="radio"] {
   display: inline-block;
