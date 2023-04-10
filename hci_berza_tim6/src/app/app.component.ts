@@ -104,7 +104,7 @@ export class AppComponent implements OnInit {
     try {
       const currencies = await this.apiService.getCurrencies();
       for (let i=0; i < currencies.length; i++) {
-        list.push({ item_id: i+1, item_text: currencies[i] });
+        list.push(currencies[i]);
       }
       return list;
     } catch (error) {
