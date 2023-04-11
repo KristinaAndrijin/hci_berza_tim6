@@ -233,12 +233,14 @@ export class AppComponent implements OnInit {
 
   async fetchCurrencies() {
     console.log('hi');
+    this.isLoading = true;
     let list = []
     try {
       const currencies = await this.apiService.getCurrencies();
       for (let i=0; i < currencies.length; i++) {
         list.push(currencies[i]);
       }
+      this.isLoading = false;
       return list;
     } catch (error) {
       console.error(error);
