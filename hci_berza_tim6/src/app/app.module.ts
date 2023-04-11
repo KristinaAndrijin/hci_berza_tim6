@@ -17,6 +17,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ServicesModule } from './services/services.module';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { MaterialModule } from './material.module';
@@ -27,12 +28,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CandlestickChartComponent,
-    DataTableComponent
+    DataTableComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { DatePipe } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatDialogModule,
     ServicesModule,
     MatButtonModule,
     MatTabsModule,
@@ -69,7 +73,7 @@ import { DatePipe } from '@angular/common';
     MatButtonModule,
     MatAutocompleteModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, MatDialogModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

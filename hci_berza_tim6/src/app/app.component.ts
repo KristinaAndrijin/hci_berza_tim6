@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { ApiService } from './services/api.service';
 import { HttpClient } from '@angular/common/http';
 import cli from '@angular/cli';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -32,8 +34,19 @@ export class AppComponent implements OnInit {
   options = ['1 min','5 min', '15 min', '30 min', '60 min', 'Daily', 'Weekly', 'Monthly'];
   selectedOptionTime = "Daily";
   selectedLegendItem: any;
+  lastSelectedLegendItem: any;
 
-  constructor(private apiService:ApiService, private http: HttpClient) {  }
+  constructor(private apiService:ApiService, private http: HttpClient, public dialog: MatDialog) {  }
+
+    openDialog() {
+      const dialogRef = this.dialog.open(ErrorDialogComponent);
+
+      this.selectedLegendItem = this.lastSelectedLegendItem;
+
+      dialogRef.afterClosed().subscribe((result: any) => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
       
     onRadioCompaniesSelected(event: any) {
       this.selectedRadioComp = event.target.value;
@@ -97,10 +110,12 @@ export class AppComponent implements OnInit {
         if(result["Error Message"])
         { 
           console.log('error!') //<<<<<<<<<<< handluj error ovde
+          this.openDialog()
           return
         }
         else if(result["Note"]){
           console.log("Pretero si!")
+          this.openDialog()
           return
         }
         const xd = result[Object.keys(result)[1]];
@@ -135,10 +150,12 @@ export class AppComponent implements OnInit {
         if(result["Error Message"])
         { 
           console.log('error!') //<<<<<<<<<<< handluj error ovde
+          this.openDialog();
           return
         }
         else if(result["Note"]){
           console.log("Pretero si!")
+          this.openDialog();
           return
         }
         const xd = result[Object.keys(result)[1]];
@@ -172,10 +189,12 @@ export class AppComponent implements OnInit {
         if(result["Error Message"])
         { 
           console.log('error!') //<<<<<<<<<<< handluj error ovde
+          this.openDialog();
           return
         }
         else if(result["Note"]){
           console.log("Pretero si!")
+          this.openDialog();
           return
         }
         const xd = result[Object.keys(result)[1]];
@@ -342,6 +361,7 @@ export class AppComponent implements OnInit {
 
   selectItemInLegend(event:any){
     const clicked = event.target as HTMLDivElement;
+    this.lastSelectedLegendItem = this.selectedLegendItem;
     this.selectedLegendItem = clicked.innerText;
     this.updateCharts();
   }
