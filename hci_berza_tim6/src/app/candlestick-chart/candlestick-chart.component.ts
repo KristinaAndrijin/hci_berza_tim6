@@ -54,7 +54,8 @@ export class CandlestickChartComponent implements OnChanges{
         }
       },
       tooltip: {
-        enabled: true
+        enabled: true,
+        theme:"dark"
       },
       xaxis: {
         type: "category",

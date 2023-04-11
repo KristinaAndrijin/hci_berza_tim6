@@ -103,13 +103,13 @@
     left: 46.75%;
     background-color: aqua;
     height: 500px;
-  }
+  }*/
 
   .legend_item:hover {
     background-color: pink;
     cursor: pointer;
   }
-  
+  /*
   #data-table {
     flex: 1;
    width: 45%;
@@ -356,7 +356,6 @@ input[type="radio"] {
   margin-right: 10px;
   margin-left: 10px;
 }
-
 
 .radio-text {
   margin-right: 10px;
