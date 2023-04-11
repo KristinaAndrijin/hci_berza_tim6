@@ -93,9 +93,11 @@ export class AppComponent implements OnInit {
       singleSelection: false,
       idField: 'item_id',
       textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'Unselect All',
-      allowSearchFilter: true
+      enableCheckAll: false,
+      allowSearchFilter: true,
+      enableFilterSearch: true,
+      showCheckAll: false,
+      showUncheckAll: true,
     };
   }
 

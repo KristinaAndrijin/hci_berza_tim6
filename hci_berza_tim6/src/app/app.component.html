@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col">
       <div class="row">
-        <div class="col radios">
+        <div class="col radios center">
           <div class="form-check radios" *ngFor="let radio of ['Currencies', 'Companies']; let i = index">
             <input class="form-check-input" type="radio" name="currencyOrCompany" [value]="radio" (change)="onRadioCompaniesSelected($event)"
             [checked]="i === 0">
@@ -35,7 +35,6 @@
             [data]="csvData"
             [(ngModel)]="selectedItems"
             (onSelect)="onItemSelect($event)"
-            (onSelectAll)="onSelectAll($event)"
             (onDeSelect)="onItemDeSelect($event)"
             class="custom-dropdown"
           >
@@ -45,7 +44,7 @@
       </div>
     </div>
     
-    <div class="col">
+    <div class="col center">
       <!--
       <input type="date" class="form-control" (change)="onStartDateSelected($event)">
 
@@ -53,7 +52,7 @@
       -->
       <mat-form-field appearance="fill" class="mat-select-panel">
         <mat-label class="my-label">Choose an option</mat-label>
-        <mat-select class="my-select" (selectionChange)="onOptionSelectedTimeBox($event)">
+        <mat-select class="my-select " (selectionChange)="onOptionSelectedTimeBox($event)">
           <mat-option class="my-option" *ngFor="let option of ['Daily', 'Weekly', 'Monthly', 'Intraday 5', 'Intraday 15', 'Intraday 30', 'Intraday 60']" [value]="option">
             {{option}}
           </mat-option>
@@ -63,6 +62,7 @@
     
     
     </div>
+    <!--
     <div class="col radios">
       <div class="form-check radios" *ngFor="let radio of ['High', 'Low', 'Volume', 'Open', 'Close']; let i = index">
         <label class="form-check-label label-below">
@@ -72,11 +72,12 @@
         </label>
       </div>
     </div>
+    --->
   </div>
 
   
 
-  <div id="container" style="display: flex; flex-wrap: wrap;">
+  <div id="chart-table" style="display: flex; flex-wrap: wrap;">
     <div id="chart" style="flex-grow: 1;">
       <app-candlestick-chart [dataSet]="candlestickChartData"></app-candlestick-chart>
     </div>

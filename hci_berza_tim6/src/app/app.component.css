@@ -20,6 +20,37 @@
   overflow-y: auto !important;
 }
 
+:host ::ng-deep div.dropdown-list {
+  background-color: rgb(41, 35, 35);
+}
+
+:host ::ng-deep .multiselect-item-checkbox input[type=checkbox]+div {
+  position: relative;
+  padding-left: 2em;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  margin: 0;
+  color: #ffffff !important;
+}
+
+
+.multiselect-item-checkbox[_ngcontent-khk-c6] input[type=checkbox]+div[_ngcontent-khk-c6] {
+  position: relative;
+  padding-left: 2em;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  margin: 0;
+  color: #fff;
+}
+
 
 :host ::ng-deep .multiselect-item-checkbox[_ngcontent-lcx-c1] input[type=checkbox]+div[_ngcontent-lcx-c1]:before {
     box-sizing: content-box;
@@ -101,14 +132,14 @@
     transition-duration: 0s;
   }
   
-  :host ::ng-deep .multiselect-item-checkbox input[type='checkbox'] + div {
+  :host ::ng-deep .multiselect-item-checkbox input[type='checkbox'] + div[_ngcontent-mek-c6] {
     position: relative;
     padding-left: 2em;
     vertical-align: middle;
     user-select: none;
     cursor: pointer;
     margin: 0px;
-    color: #000;
+    color: #ffffff;
   }
   
   :host ::ng-deep .multiselect-item-checkbox input[type='checkbox'] + div:before {
@@ -175,7 +206,7 @@
   }
 
   :host ::ng-deep .multiselect-dropdown[_ngcontent-dqd-c6] {
-    background-color: white !important;
+    background-color: rgb(195, 143, 143) !important;
     max-height: 50px; /* set the maximum height of the dropdown list container */
    overflow-y: auto;
   }
@@ -288,7 +319,8 @@ html {
 }
 
 .white-background {
-  background-color: white;
+  background-color: rgb(41, 35, 35);
+  color: white;
 }
     
 .left {
@@ -314,20 +346,22 @@ input[type="radio"] {
 }
 
 
-#container {
+#chart-table {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-align-items: center;
+  align-items: center;
 }
 
 #chart {
   flex-grow: 1;
+  margin: 5px
 }
 
 #data-table {
   flex-grow: 1;
   max-width: 700px;
+  margin: 10px;
 }
 
 @media (max-width: 900px) {
@@ -348,4 +382,15 @@ align-items: center;
   #data-table {
     
   }
+}
+
+.center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+:host ::ng-deep .custom-dropdown .dropdown-item {
+  color: white !important;
 }
