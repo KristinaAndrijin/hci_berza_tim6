@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col">
       <div class="row">
-        <div class="col radios">
+        <div class="col radios center">
           <div class="form-check radios" *ngFor="let radio of ['Currencies', 'Companies']; let i = index">
             <input class="form-check-input" type="radio" name="currencyOrCompany" [value]="radio" (change)="onRadioCompaniesSelected($event)"
             [checked]="i === 0">
@@ -35,7 +35,6 @@
             [data]="csvData"
             [(ngModel)]="selectedItems"
             (onSelect)="onItemSelect($event)"
-            (onSelectAll)="onSelectAll($event)"
             (onDeSelect)="onItemDeSelect($event)"
             class="custom-dropdown"
           >
@@ -45,7 +44,7 @@
       </div>
     </div>
     
-    <div class="col">
+    <div class="col center">
       <!--
       <input type="date" class="form-control" (change)="onStartDateSelected($event)">
 
@@ -54,7 +53,7 @@
       <mat-form-field appearance="fill" class="mat-select-panel">
         <mat-label class="my-label">Choose an option</mat-label>
         <mat-select class="my-select" (selectionChange)="onOptionSelectedTimeBox($event)">
-          <mat-option class="my-option" *ngFor="let option of ['1min','5min', '15min', '30min', '60min', 'Daily', 'Weekly', 'Monthly']" [value]="option">
+          <mat-option class="my-option" [disabled]="" *ngFor="let option of ['1 min','5 min', '15 min', '30 min', '60 min', 'Daily', 'Weekly', 'Monthly']" [value]="option">
             {{option}}
           </mat-option>
         </mat-select>
@@ -63,6 +62,7 @@
     
     
     </div>
+    <!--
     <div class="col radios">
       <div class="form-check radios" *ngFor="let radio of ['High', 'Low', 'Volume', 'Open', 'Close']; let i = index">
         <label class="form-check-label label-below">
@@ -72,6 +72,7 @@
         </label>
       </div>
     </div>
+    --->
   </div>
 
   
@@ -79,12 +80,11 @@
 <div id="chart-and-table">
 
   <div id="chart" class="white-background">
-    <div id="legend"><p>Legend</p>
-      <div *ngFor='let item of selectedItems' (click)="selectItemInLegend($event)">{{item.split(',')[0]}}</div>
-    </div>
     <app-candlestick-chart [title]="selectedLegendItem" [dataSet]="candlestickChartData"></app-candlestick-chart>
   </div>
-
+  <div id="legend"><p>Legend</p>
+    <div class="legend_item" *ngFor='let item of selectedItems' [ngClass]="{'selected_legend': item.split(',')[0] === selectedLegendItem}" (click)="selectItemInLegend($event)">{{item.split(',')[0]}}</div>
+  </div>
   <div id="data-table" class="white-background">
     <app-data-table [tableData] ="tableData"></app-data-table>
   </div>

@@ -20,6 +20,37 @@
   overflow-y: auto !important;
 }
 
+:host ::ng-deep div.dropdown-list {
+  background-color: rgb(41, 35, 35);
+}
+
+:host ::ng-deep .multiselect-item-checkbox input[type=checkbox]+div {
+  position: relative;
+  padding-left: 2em;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  margin: 0;
+  color: #ffffff !important;
+}
+
+
+.multiselect-item-checkbox[_ngcontent-khk-c6] input[type=checkbox]+div[_ngcontent-khk-c6] {
+  position: relative;
+  padding-left: 2em;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  margin: 0;
+  color: #fff;
+}
+
 
 :host ::ng-deep .multiselect-item-checkbox[_ngcontent-lcx-c1] input[type=checkbox]+div[_ngcontent-lcx-c1]:before {
     box-sizing: content-box;
@@ -55,22 +86,38 @@
     flex-direction: row;
     padding: 20px;
   }
-  
+  /*
   #chart {
     flex: 1;
     margin-left: 20px;
-    width: 47%;
+    width: 45%;
     position: absolute;
     left: 0;
+  }
+
+  #legend {
+    flex: 1;
+    margin-left: 20px;
+    width: 60px;
+    position: absolute;
+    left: 46.75%;
+    background-color: aqua;
+    height: 500px;
+  }
+
+  .legend_item:hover {
+    background-color: pink;
+    cursor: pointer;
   }
   
   #data-table {
     flex: 1;
-   width: 47%;
+   width: 45%;
    position: absolute;
     right: 0;
     margin-right: 20px;
   }
+  */
 
   .row
   {
@@ -100,14 +147,14 @@
     transition-duration: 0s;
   }
   
-  :host ::ng-deep .multiselect-item-checkbox input[type='checkbox'] + div {
+  :host ::ng-deep .multiselect-item-checkbox input[type='checkbox'] + div[_ngcontent-mek-c6] {
     position: relative;
     padding-left: 2em;
     vertical-align: middle;
     user-select: none;
     cursor: pointer;
     margin: 0px;
-    color: #000;
+    color: #ffffff;
   }
   
   :host ::ng-deep .multiselect-item-checkbox input[type='checkbox'] + div:before {
@@ -174,7 +221,7 @@
   }
 
   :host ::ng-deep .multiselect-dropdown[_ngcontent-dqd-c6] {
-    background-color: white !important;
+    background-color: rgb(195, 143, 143) !important;
     max-height: 50px; /* set the maximum height of the dropdown list container */
    overflow-y: auto;
   }
@@ -287,7 +334,8 @@ html {
 }
 
 .white-background {
-  background-color: white;
+  background-color: rgb(41, 35, 35);
+  color: white;
 }
     
 .left {
@@ -297,7 +345,10 @@ html {
   margin: 30px;
 }
 
-
+.selected_legend {
+  color: aqua;
+  background-color: #CE00D3;
+}
 
 input[type="radio"] {
   display: inline-block;
@@ -312,3 +363,52 @@ input[type="radio"] {
   color: white;
 }
 
+
+#chart-table {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#chart {
+  flex-grow: 1;
+  margin: 5px
+}
+
+#data-table {
+  flex-grow: 1;
+  max-width: 700px;
+  margin: 10px;
+}
+
+@media (max-width: 900px) {
+  #chart {
+    min-width: none;
+    flex-basis: 100%;
+  }
+  #data-table {
+    flex-basis: 100%;
+    max-width: none;
+  }
+}
+
+@media (min-width: 900px) {
+  #chart {
+    min-width: 500px;
+  }
+  #data-table {
+    
+  }
+}
+
+.center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+:host ::ng-deep .custom-dropdown .dropdown-item {
+  color: white !important;
+}
