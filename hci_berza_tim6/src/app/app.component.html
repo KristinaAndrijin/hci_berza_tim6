@@ -52,7 +52,7 @@
       -->
       <mat-form-field appearance="fill" class="mat-select-panel">
         <mat-label class="my-label">Choose an option</mat-label>
-        <mat-select class="my-select" (selectionChange)="onOptionSelectedTimeBox($event)">
+        <mat-select [(value)]="selectedOptionTime" placeholder="Mode" class="my-select" (selectionChange)="onOptionSelectedTimeBox($event)">
           <mat-option class="my-option" [disabled]="" *ngFor="let option of ['1 min','5 min', '15 min', '30 min', '60 min', 'Daily', 'Weekly', 'Monthly']" [value]="option">
             {{option}}
           </mat-option>
