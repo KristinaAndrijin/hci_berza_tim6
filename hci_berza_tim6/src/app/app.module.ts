@@ -18,6 +18,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ServicesModule } from './services/services.module';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { MaterialModule } from './material.module';
@@ -56,6 +57,7 @@ import { WaitingSpinnerComponent } from './waiting-spinner/waiting-spinner.compo
     MatTabsModule,
     MatTableModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule,
     DatePipe,
     MatIconModule,
     MaterialModule,
