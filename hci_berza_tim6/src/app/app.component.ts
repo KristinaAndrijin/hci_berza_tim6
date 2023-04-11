@@ -271,7 +271,7 @@ export class AppComponent implements OnInit {
   updateCharts(): void{
     if(this.companies){
       if(this.selectedLegendItem){
-        const interval = this.selectedOptionTime.replace(/\s/g, '');
+        const interval = this.selectedOptionTime//.replace(/\s/g, '');
         if(this.options.slice(0,5).includes(interval)){
           const company = this.selectedLegendItem;
           this.fetchStocksIntradayData(company,interval);
@@ -295,7 +295,7 @@ export class AppComponent implements OnInit {
     }
     else {
       if(this.selectedLegendItem){
-        const interval = this.selectedOptionTime.replace(/\s/g, '');
+        const interval = this.selectedOptionTime//.replace(/\s/g, '');
         if(this.options.slice(0,5).includes(interval)){
           console.log("ne moze, plati") 
         }
@@ -321,7 +321,7 @@ export class AppComponent implements OnInit {
   updateTable(): void{
     if(this.companies){
       //if(this.selectedLegendItem){
-        const interval = this.selectedOptionTime.replace(/\s/g, '');
+        const interval = this.selectedOptionTime//.replace(/\s/g, '');
         if(this.options.slice(0,5).includes(interval)){
           const company = this.selectedLegendItem;
           this.fetchStocksIntradayData(company,interval);
@@ -345,7 +345,7 @@ export class AppComponent implements OnInit {
     }
     else {
       if(this.selectedLegendItem){
-        const interval = this.selectedOptionTime.replace(/\s/g, '');
+        const interval = this.selectedOptionTime//.replace(/\s/g, '');
         if(this.options.slice(0,5).includes(interval)){
           console.log("ne moze, plati")  
         }
