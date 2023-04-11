@@ -1,0 +1,4 @@
+/* Define styles for even rows */
+.mat-row:nth-child(even) {
+    background-color: #F0F0F0; /* or any other lighter color */
+}
