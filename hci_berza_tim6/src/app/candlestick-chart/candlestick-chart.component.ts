@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import {
@@ -27,6 +28,7 @@ export type ChartOptions = {
 })
 export class CandlestickChartComponent implements OnChanges{
   @Input() public dataSet: any[] = [];
+  @Input() public title?: string;
   @ViewChild("chart")
   chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
@@ -44,8 +46,12 @@ export class CandlestickChartComponent implements OnChanges{
         type: "candlestick"
       },
       title: {
-        text: "",
-        align: "left"
+        text: this.title,
+        align: "left",
+        style: {
+          fontSize:"18",
+          color: '#ff0000'
+        }
       },
       tooltip: {
         enabled: true
@@ -53,6 +59,9 @@ export class CandlestickChartComponent implements OnChanges{
       xaxis: {
         type: "category",
         labels: {
+          style: {
+            colors: '#ff0000'
+          },
           formatter: function(val) {
             return moment(val).format("MMM DD HH:mm");
           }
@@ -61,6 +70,11 @@ export class CandlestickChartComponent implements OnChanges{
       yaxis: {
         tooltip: {
           enabled: true
+        },
+        labels: {
+          style: {
+            colors: ['#ff0000']
+          }
         }
       }
     };
@@ -73,6 +87,13 @@ export class CandlestickChartComponent implements OnChanges{
           data: changes['dataSet'].currentValue
         }
       ];
+      this.chart.updateOptions(this.chartOptions);
+    }
+    if (changes['title']){
+      this.chartOptions.title = {
+        text: this.title,
+        align:"left"
+      }
       this.chart.updateOptions(this.chartOptions);
     }
   }

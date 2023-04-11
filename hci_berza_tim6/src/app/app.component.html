@@ -52,8 +52,8 @@
       -->
       <mat-form-field appearance="fill" class="mat-select-panel">
         <mat-label class="my-label">Choose an option</mat-label>
-        <mat-select class="my-select " (selectionChange)="onOptionSelectedTimeBox($event)">
-          <mat-option class="my-option" *ngFor="let option of ['Daily', 'Weekly', 'Monthly', 'Intraday 5', 'Intraday 15', 'Intraday 30', 'Intraday 60']" [value]="option">
+        <mat-select class="my-select" (selectionChange)="onOptionSelectedTimeBox($event)">
+          <mat-option class="my-option" [disabled]="" *ngFor="let option of ['1 min','5 min', '15 min', '30 min', '60 min', 'Daily', 'Weekly', 'Monthly']" [value]="option">
             {{option}}
           </mat-option>
         </mat-select>
@@ -77,17 +77,18 @@
 
   
 
-  <div id="chart-table" style="display: flex; flex-wrap: wrap;">
-    <div id="chart" style="flex-grow: 1;">
-      <app-candlestick-chart [dataSet]="candlestickChartData"></app-candlestick-chart>
-    </div>
-    <div id="data-table" style="flex-grow: 1; max-width: 700px;">
-      <app-data-table></app-data-table>
-    </div>
+<div id="chart-and-table">
+
+  <div id="chart" class="white-background">
+    <app-candlestick-chart [title]="selectedLegendItem" [dataSet]="candlestickChartData"></app-candlestick-chart>
   </div>
-  
-  
-  
+  <div id="legend"><p>Legend</p>
+    <div class="legend_item" *ngFor='let item of selectedItems' [ngClass]="{'selected_legend': item.split(',')[0] === selectedLegendItem}" (click)="selectItemInLegend($event)">{{item.split(',')[0]}}</div>
+  </div>
+  <div id="data-table" class="white-background">
+    <app-data-table></app-data-table>
+  </div>
+</div>
 
   </html>
 
