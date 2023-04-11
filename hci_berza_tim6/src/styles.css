@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%; background-color: #616161;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .multiselect-dropdown[_ngcontent-lya-c1] .dropdown-btn[_ngcontent-lya-c1] .selected-item-container[_ngcontent-lya-c1] .selected-item[_ngcontent-lya-c1] {
     border: 1px solid #000000;
