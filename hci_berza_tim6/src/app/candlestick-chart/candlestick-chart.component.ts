@@ -50,7 +50,7 @@ export class CandlestickChartComponent implements OnChanges{
         align: "left",
         style: {
           fontSize:"18",
-          color: '#ff0000'
+          color: '#fff'
         }
       },
       tooltip: {
@@ -61,7 +61,7 @@ export class CandlestickChartComponent implements OnChanges{
         type: "category",
         labels: {
           style: {
-            colors: '#ff0000'
+            colors: '#fff'
           },
           formatter: function(val) {
             return moment(val).format("MMM DD HH:mm");
@@ -74,7 +74,7 @@ export class CandlestickChartComponent implements OnChanges{
         },
         labels: {
           style: {
-            colors: ['#ff0000']
+            colors: ['#fff']
           }
         }
       }
