@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import {
@@ -46,7 +47,11 @@ export class CandlestickChartComponent implements OnChanges{
       },
       title: {
         text: this.title,
-        align: "left"
+        align: "left",
+        style: {
+          fontSize:"18",
+          color: '#ff0000'
+        }
       },
       tooltip: {
         enabled: true
@@ -54,6 +59,9 @@ export class CandlestickChartComponent implements OnChanges{
       xaxis: {
         type: "category",
         labels: {
+          style: {
+            colors: '#ff0000'
+          },
           formatter: function(val) {
             return moment(val).format("MMM DD HH:mm");
           }
@@ -62,6 +70,11 @@ export class CandlestickChartComponent implements OnChanges{
       yaxis: {
         tooltip: {
           enabled: true
+        },
+        labels: {
+          style: {
+            colors: ['#ff0000']
+          }
         }
       }
     };
