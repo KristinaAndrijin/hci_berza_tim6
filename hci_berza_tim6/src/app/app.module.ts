@@ -29,13 +29,15 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { WaitingSpinnerComponent } from './waiting-spinner/waiting-spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CandlestickChartComponent,
     DataTableComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    WaitingSpinnerComponent
   ],
   imports: [
     BrowserModule,

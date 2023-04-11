@@ -35,6 +35,7 @@ export class AppComponent implements OnInit {
   selectedOptionTime = "Daily";
   selectedLegendItem: any;
   lastSelectedLegendItem: any;
+  isLoading: boolean = false;
 
   constructor(private apiService:ApiService, private http: HttpClient, public dialog: MatDialog) {  }
 
@@ -105,6 +106,7 @@ export class AppComponent implements OnInit {
   }
   
   fetchStocksIntradayData(symbol: string, time:string) {
+    this.isLoading = true;
     this.apiService.getStocksDataIntraday(symbol, time).subscribe({
       next: (result) => {
         if(result["Error Message"])
@@ -141,10 +143,12 @@ export class AppComponent implements OnInit {
       },
       complete: () => {
         console.log("Data fetch completed.");
+        this.isLoading = false;
       },
     });
   }
   fetchStocksData(func: string, symbol: string) {
+    this.isLoading = true;
     this.apiService.getStocksData(func, symbol).subscribe({
       next: (result) => {
         if(result["Error Message"])
@@ -180,10 +184,12 @@ export class AppComponent implements OnInit {
       },
       complete: () => {
         console.log("Data fetch completed.");
+        this.isLoading = false;
       },
     });
   }
   fetchCryptoData(func: string, symbol: string) {
+    this.isLoading = true;
     this.apiService.getCryptoData(func, symbol).subscribe({
       next: (result) => {
         if(result["Error Message"])
@@ -220,6 +226,7 @@ export class AppComponent implements OnInit {
       },
       complete: () => {
         console.log("Data fetch completed.");
+        this.isLoading = false;
       },
     });
   }
@@ -288,7 +295,7 @@ export class AppComponent implements OnInit {
       if(this.selectedLegendItem){
         const interval = this.selectedOptionTime.replace(/\s/g, '');
         if(this.options.slice(0,5).includes(interval)){
-          console.log("ne moze, plati")  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< hendlaj ilegalno vreme na crypto
+          console.log("ne moze, plati") 
         }
         if(interval === this.options[5]){
           const company = this.selectedLegendItem;
@@ -338,7 +345,7 @@ export class AppComponent implements OnInit {
       if(this.selectedLegendItem){
         const interval = this.selectedOptionTime.replace(/\s/g, '');
         if(this.options.slice(0,5).includes(interval)){
-          console.log("ne moze, plati")  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< hendlaj ilegalno vreme na crypto
+          console.log("ne moze, plati")  
         }
         if(interval === this.options[5]){
           const company = this.selectedLegendItem;

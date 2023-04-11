@@ -79,6 +79,7 @@
 
 <div id="chart-and-table">
 
+  <app-waiting-spinner [showOverlay]="isLoading"></app-waiting-spinner>
   <div id="chart" class="white-background">
     <app-candlestick-chart [title]="selectedLegendItem" [dataSet]="candlestickChartData"></app-candlestick-chart>
   </div>
